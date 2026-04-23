@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISSC101N – Essence of Traditional Knowledge | Dashboard</title>
+    <meta name="description"
+        content="Course dashboard for ISSC101N – Essence of Traditional Knowledge, Winter 2025-26. Week-wise quiz navigation and study materials.">
+    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-22LD4DD8ES"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-22LD4DD8ES');
+    </script>
+
+    <style>
+        /* ── Reset & Base ─────────────────────────────────────── */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --border: #21262d;
+            --text: #e6edf3;
+            --muted: #8b949e;
+            --accent: #58a6ff;
+            --green: #3fb950;
+            --purple: #bc8cff;
+            --orange: #f0883e;
+            --pink: #f85149;
+            --yellow: #d29922;
+            --cyan: #39d0d8;
+
+            --w1: linear-gradient(135deg, #1e3a5f 0%, #2d5986 100%);
+            --w2: linear-gradient(135deg, #1a3d2e 0%, #2d6347 100%);
+            --w3: linear-gradient(135deg, #3d1a3a 0%, #6b2d68 100%);
+            --w4: linear-gradient(135deg, #3d2a1a 0%, #7a4f2d 100%);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* ── Header ───────────────────────────────────────────── */
+        .site-header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+        }
+
+        .header-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+            gap: 16px;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-brand img {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .brand-text strong {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.2px;
+        }
+
+        .brand-text span {
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .header-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pill {
+            background: rgba(88, 166, 255, .15);
+            color: var(--accent);
+            border: 1px solid rgba(88, 166, 255, .3);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .3px;
+        }
+
+        /* ── Hero ─────────────────────────────────────────────── */
+        .hero {
+            background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #0d1117 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 56px 24px 48px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(88, 166, 255, .08) 0%, transparent 70%);
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+
+        .hero-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .hero-logos img {
+            height: 72px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, .05);
+            padding: 8px;
+            border: 1px solid var(--border);
+            transition: transform .3s, box-shadow .3s;
+        }
+
+        .hero-logos img:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(88, 166, 255, .2);
+        }
+
+        .hero h1 {
+            font-size: clamp(24px, 4vw, 42px);
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #e6edf3 30%, #58a6ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .hero-sub {
+            font-size: 15px;
+            color: var(--muted);
+            max-width: 560px;
+            margin: 0 auto 28px;
+        }
+
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .badge .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 6px var(--green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: .4;
+            }
+        }
+
+        /* ── Main Layout ──────────────────────────────────────── */
+        .main {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        /* ── Section ─────────────────────────────────────────── */
+        .section {
+            margin-bottom: 56px;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .section-icon.blue {
+            background: rgba(88, 166, 255, .2);
+        }
+
+        .section-icon.red {
+            background: rgba(248, 81, 73, .2);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .section-title small {
+            display: block;
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        /* ── Week Cards Grid ─────────────────────────────────── */
+        .weeks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .week-card {
+            border-radius: 16px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            border: 1px solid rgba(255, 255, 255, .08);
+            cursor: pointer;
+            transition: transform .25s, box-shadow .25s;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .week-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, .0);
+            transition: background .25s;
+        }
+
+        .week-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, .4);
+        }
+
+        .week-card:hover::before {
+            background: rgba(255, 255, 255, .04);
+        }
+
+        .week-card.w1 {
+            background: var(--w1);
+        }
+
+        .week-card.w2 {
+            background: var(--w2);
+        }
+
+        .week-card.w3 {
+            background: var(--w3);
+        }
+
+        .week-card.w4 {
+            background: var(--w4);
+        }
+
+        .week-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .week-num {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, .6);
+        }
+
+        .week-icon {
+            font-size: 28px;
+        }
+
+        .week-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.3;
+        }
+
+        .week-topics {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .week-topics li {
+            font-size: 12px;
+            color: rgba(255, 255, 255, .65);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .week-topics li::before {
+            content: '›';
+            color: rgba(255, 255, 255, .4);
+        }
+
+        .week-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, .12);
+        }
+
+        /* ── Protected PDF Viewer ─────────────────────────────── */
+        #pdfViewerContainer {
+            padding: 20px;
+            max-height: 780px;
+            overflow-y: auto;
+            background: #1a1a2e;
+            position: relative;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        #pdfViewerContainer canvas {
+            display: block;
+            margin: 0 auto 12px;
+            max-width: 100%;
+            border-radius: 4px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, .5);
+            pointer-events: none;
+        }
+
+        /* Transparent drag-block overlay */
+        #pdfOverlay {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            background: transparent;
+        }
+
+        #pdfLoading {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .pdf-nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, .03);
+            border-top: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+
+        .pdf-nav-bar button {
+            background: var(--border);
+            color: var(--text);
+            border: none;
+            border-radius: 6px;
+            padding: 7px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background .2s;
+        }
+
+        .pdf-nav-bar button:hover {
+            background: #2d333b;
+        }
+
+        .pdf-nav-bar button:disabled {
+            opacity: .35;
+            cursor: default;
+        }
+
+        #pageInfo {
+            font-size: 13px;
+            color: var(--muted);
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .week-qs {
+            font-size: 12px;
+            color: rgba(255, 255, 255, .5);
+        }
+
+        .week-btn {
+            background: rgba(255, 255, 255, .15);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, .2);
+            border-radius: 8px;
+            padding: 8px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .2s;
+        }
+
+        .week-btn:hover {
+            background: rgba(255, 255, 255, .25);
+        }
+
+        /* ── PDF Viewer Section ──────────────────────────────── */
+        .pdf-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        /* ── Stats Bar ───────────────────────────────────────── */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        /* ── Footer ──────────────────────────────────────────── */
+        .site-footer {
+            text-align: center;
+            padding: 24px;
+            font-size: 12px;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+        }
+
+        /* ── Responsive ──────────────────────────────────────── */
+        @media (max-width: 640px) {
+            .hero {
+                padding: 40px 16px 36px;
+            }
+
+            .main {
+                padding: 24px 16px 60px;
+            }
+
+            .weeks-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-meta .pill {
+                display: none;
+            }
+        }
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-22LD4DD8ES"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-22LD4DD8ES');
+    </script>
+</head>
+
+<body>
+
+    <!-- ── Header ────────────────────────────────────────────────── -->
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="header-brand">
+                <img src="NNPHUB.png" alt="VIT Logo">
+                <div class="brand-text">
+                    <strong>ISSC101N</strong>
+                    <span>Essence of Traditional Knowledge</span>
+                </div>
+            </div>
+            <div class="header-meta">
+                <span class="pill">Winter 2025–26</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ── Hero ──────────────────────────────────────────────────── -->
+    <section class="hero">
+        <div class="hero-logos">
+            <img src="logo.png" alt="Institution Logo">
+            <img src="vishva.jpg" alt="VIT Logo">
+            <img src="NNPHUB.png" alt="VIT Logo">
+        </div>
+        <h1>Essence of Traditional Knowledge</h1>
+        <p class="hero-sub">Course ISSC101N &nbsp;·&nbsp; Winter 2025–26 &nbsp;·&nbsp; 4 Weeks Available</p>
+        <div class="hero-badges">
+            <div class="badge"><span class="dot"></span> 4 Weeks Active</div>
+            <div class="badge">📝 48 Questions Total</div>
+            <div class="badge">🕒 12 Questions / Week</div>
+            <div class="badge">📖 Study Materials Available</div>
+        </div>
+    </section>
+
+    <!-- ── Main Content ───────────────────────────────────────────── -->
+    <main class="main">
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div class="stat-value">4</div>
+                <div class="stat-label">Weeks Available</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">48</div>
+                <div class="stat-label">Total Questions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">12</div>
+                <div class="stat-label">Questions / Week</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">MCQ</div>
+                <div class="stat-label">Quiz Format</div>
+            </div>
+        </div>
+
+        <!-- ── Weekly Quizzes ──────────────────────────────────── -->
+        <div class="section">
+            <div class="section-head">
+                <div class="section-icon blue">📋</div>
+                <div>
+                    <div class="section-title">Weekly Quizzes
+                        <small>Attempt each week's assessment to test your knowledge</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="weeks-grid">
+
+                <!-- Week 1 -->
+                <a class="week-card w1" href="quiz1.html" id="week1-card">
+                    <div class="week-badge">
+                        <span class="week-num">Week 01</span>
+                    </div>
+                    <div class="week-icon">🌏</div>
+                    <div class="week-title">Culture &amp; Knowledge Foundations</div>
+                    <ul class="week-topics">
+                        <li>Medieval Period &amp; Religion</li>
+                        <li>Material vs Non-material Culture</li>
+                        <li>Cultural Transmission &amp; Values</li>
+                        <li>Indian Culture &amp; Purushartha</li>
+                    </ul>
+                    <div class="week-footer">
+                        <span class="week-qs">📝 12 Questions</span>
+                        <button class="week-btn"
+                            onclick="event.preventDefault(); window.location.href='quiz1.html'">Start Quiz →</button>
+                    </div>
+                </a>
+
+                <!-- Week 2 -->
+                <a class="week-card w2" href="quiz2.html" id="week2-card">
+                    <div class="week-badge">
+                        <span class="week-num">Week 02</span>
+                    </div>
+                    <div class="week-icon">📜</div>
+                    <div class="week-title">Vedic Texts &amp; Philosophy</div>
+                    <ul class="week-topics">
+                        <li>Vedas &amp; their Contributions</li>
+                        <li>Tolkappiyam &amp; Aranyakas</li>
+                        <li>Bhakti Movement Origins</li>
+                        <li>Jainism &amp; Sanskrit</li>
+                    </ul>
+                    <div class="week-footer">
+                        <span class="week-qs">📝 12 Questions</span>
+                        <button class="week-btn"
+                            onclick="event.preventDefault(); window.location.href='quiz2.html'">Start Quiz →</button>
+                    </div>
+                </a>
+
+                <!-- Week 3 -->
+                <a class="week-card w3" href="quiz3.html" id="week3-card">
+                    <div class="week-badge">
+                        <span class="week-num">Week 03</span>
+                    </div>
+                    <div class="week-icon">🎭</div>
+                    <div class="week-title">Music, Dance &amp; Classical Arts</div>
+                    <ul class="week-topics">
+                        <li>Sama Veda Ragas &amp; Music</li>
+                        <li>Classical Dance Forms</li>
+                        <li>Handicrafts &amp; Traditional Arts</li>
+                        <li>Ballet &amp; Syncopation</li>
+                    </ul>
+                    <div class="week-footer">
+                        <span class="week-qs">📝 12 Questions</span>
+                        <button class="week-btn"
+                            onclick="event.preventDefault(); window.location.href='quiz3.html'">Start Quiz →</button>
+                    </div>
+                </a>
+
+                <!-- Week 4 -->
+                <a class="week-card w4" href="quiz4.html" id="week4-card">
+                    <div class="week-badge">
+                        <span class="week-num">Week 04</span>
+                    </div>
+                    <div class="week-icon">⚖️</div>
+                    <div class="week-title">Law, Heritage &amp; Environment</div>
+                    <ul class="week-topics">
+                        <li>Farmer's Rights Act</li>
+                        <li>Forest Rights Act (FRA)</li>
+                        <li>Cave Paintings &amp; Temples</li>
+                        <li>Colonial Mindset &amp; Civilization</li>
+                    </ul>
+                    <div class="week-footer">
+                        <span class="week-qs">📝 12 Questions</span>
+                        <button class="week-btn"
+                            onclick="event.preventDefault(); window.location.href='quiz4.html'">Start Quiz →</button>
+                    </div>
+                </a>
+
+            </div>
+            <!-- Future weeks can be added here by duplicating a week-card block -->
+        </div>
+
+        <!-- ── Full Mock Test ──────────────────────────────────── -->
+        <div class="section">
+            <div class="section-head">
+                <div class="section-icon" style="background:rgba(188,140,255,.2);">🏆</div>
+                <div>
+                    <div class="section-title">Full Mock Test – MOOC
+                        <small>50 questions · All weeks combined · Randomly shuffled</small>
+                    </div>
+                </div>
+            </div>
+
+            <a href="mooc.html" id="mooc-card" style="
+            display:flex; align-items:center; justify-content:space-between;
+            background:linear-gradient(135deg,#1a1040 0%,#2d1b69 50%,#1a3040 100%);
+            border:1px solid rgba(188,140,255,.3); border-radius:16px; padding:28px 32px;
+            text-decoration:none; color:inherit;
+            transition:transform .25s, box-shadow .25s; flex-wrap:wrap; gap:20px;
+        " onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 20px 40px rgba(0,0,0,.5)'"
+                onmouseout="this.style.transform='';this.style.boxShadow=''">
+                <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+                    <div style="font-size:52px;">🏆</div>
+                    <div>
+                        <div style="font-size:20px;font-weight:800;color:#fff;margin-bottom:6px;">ISSC101N – Full Mock
+                            Test</div>
+                        <div style="font-size:13px;color:rgba(255,255,255,.6);margin-bottom:12px;">All 4 weeks combined
+                            · 50 questions · Random order every attempt</div>
+                        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                            <span
+                                style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:4px 12px;font-size:12px;color:rgba(255,255,255,.8);">📝
+                                50 Questions</span>
+                            <span
+                                style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:4px 12px;font-size:12px;color:rgba(255,255,255,.8);">⏱
+                                50 Minutes</span>
+                            <span
+                                style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:4px 12px;font-size:12px;color:rgba(255,255,255,.8);">🔀
+                                Shuffled</span>
+                            <span
+                                style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:4px 12px;font-size:12px;color:rgba(255,255,255,.8);">📊
+                                Instant Results</span>
+                        </div>
+                    </div>
+                </div>
+                <button
+                    style="background:linear-gradient(135deg,#bc8cff,#58a6ff);color:#000;border:none;border-radius:10px;padding:14px 28px;font-size:15px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit;">
+                    Start Mock Test →
+                </button>
+            </a>
+        </div>
+
+        <!-- ── PDF Viewer (Protected – PDF.js) ─────────────────── -->
+        <div class="section">
+            <div class="section-head">
+                <div class="section-icon red">📄</div>
+                <div>
+                    <div class="section-title">Study Materials – Answer Key
+                    </div>
+                </div>
+            </div>
+
+            <div class="pdf-section">
+                <!-- Toolbar -->
+                <div
+                    style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:rgba(255,255,255,.03);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:10px;">
+                    <div>
+                        <div style="font-size:14px;font-weight:600;color:var(--text);">📄 ISSC101N Quiz Answers</div>
+                        <div style="font-size:12px;color:var(--muted);">Rendered securely via PDF
+                        </div>
+                    </div>
+                    <div
+                        style="font-size:11px;color:var(--muted);background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:6px;padding:4px 10px;">
+                        👁 View Only</div>
+                </div>
+
+                <!-- PDF.js Canvas Viewer -->
+                <div id="pdfViewerContainer">
+                    <div id="pdfOverlay"></div>
+                    <div id="pdfLoading">⏳ Loading document…</div>
+                </div>
+
+                <!-- Page Navigation -->
+                <div class="pdf-nav-bar">
+                    <button id="btnFirst" onclick="goPage('first')">⏮ First</button>
+                    <button id="btnPrev" onclick="goPage('prev')">‹ Prev</button>
+                    <span id="pageInfo">Page — of —</span>
+                    <button id="btnNext" onclick="goPage('next')">Next ›</button>
+                    <button id="btnLast" onclick="goPage('last')">Last ⏭</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ── Footer ────────────────────────────────────────────────── -->
+    <footer class="site-footer">
+        ISSC101N – Essence of Traditional Knowledge &nbsp;·&nbsp; Winter 2025–26 &nbsp;·&nbsp; VIT
+    </footer>
+
+    <!-- PDF.js CDN (Mozilla) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.min.mjs" type="module"></script>
+
+    <script type="module">
+        /* ══════════════════════════════════════════════════════
+           PROTECTED PDF VIEWER  –  PDF.js canvas renderer
+           • No browser PDF toolbar  (canvas-only render)
+           • Right-click blocked on viewer
+           • Ctrl+S / Ctrl+P / Ctrl+C blocked on page
+           • Text selection blocked via CSS + overlay
+           • File URL never exposed to user
+        ══════════════════════════════════════════════════════ */
+        import * as pdfjsLib from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.min.mjs';
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+            'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.worker.min.mjs';
+
+        const PDF_PATH = 'ISSC101N_Quiz_Answers.pdf';
+        const SCALE = 1.6;      // render quality
+        const PAGES_BATCH = 1;        // render one page at a time for performance
+
+        let pdfDoc = null;
+        let currentPage = 1;
+        let totalPages = 0;
+        let rendering = false;
+
+        const container = document.getElementById('pdfViewerContainer');
+        const loadingEl = document.getElementById('pdfLoading');
+        const pageInfo = document.getElementById('pageInfo');
+        const btnFirst = document.getElementById('btnFirst');
+        const btnPrev = document.getElementById('btnPrev');
+        const btnNext = document.getElementById('btnNext');
+        const btnLast = document.getElementById('btnLast');
+
+        /* ─── Load PDF ─── */
+        pdfjsLib.getDocument(PDF_PATH).promise.then(pdf => {
+            pdfDoc = pdf;
+            totalPages = pdf.numPages;
+            loadingEl.style.display = 'none';
+            renderPage(1);
+        }).catch(err => {
+            loadingEl.textContent = '⚠️ Unable to load document. ' + err.message;
+        });
+
+        /* ─── Render a single page ─── */
+        function renderPage(num) {
+            if (rendering || !pdfDoc) return;
+            if (num < 1 || num > totalPages) return;
+            rendering = true;
+            currentPage = num;
+            updateNav();
+
+            /* Clear old canvases (keep overlay + loading) */
+            [...container.querySelectorAll('canvas')].forEach(c => c.remove());
+
+            pdfDoc.getPage(num).then(page => {
+                const vp = page.getViewport({ scale: SCALE });
+                const canvas = document.createElement('canvas');
+                canvas.width = vp.width;
+                canvas.height = vp.height;
+                container.appendChild(canvas);
+
+                page.render({ canvasContext: canvas.getContext('2d'), viewport: vp })
+                    .promise.then(() => { rendering = false; });
+            });
+        }
+
+        /* ─── Navigation ─── */
+        window.goPage = function (cmd) {
+            let n = currentPage;
+            if (cmd === 'first') n = 1;
+            else if (cmd === 'last') n = totalPages;
+            else if (cmd === 'prev') n = currentPage - 1;
+            else if (cmd === 'next') n = currentPage + 1;
+            else n = parseInt(cmd);
+            renderPage(n);
+            container.scrollTop = 0;
+        };
+
+        function updateNav() {
+            pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+            btnFirst.disabled = btnPrev.disabled = (currentPage <= 1);
+            btnNext.disabled = btnLast.disabled = (currentPage >= totalPages);
+        }
+
+        /* ─── Block right-click on viewer ─── */
+        container.addEventListener('contextmenu', e => e.preventDefault());
+        document.getElementById('pdfOverlay').addEventListener('contextmenu', e => e.preventDefault());
+
+        /* ─── Block Ctrl+S, Ctrl+P, Ctrl+C globally ─── */
+        document.addEventListener('keydown', function (e) {
+            if (e.ctrlKey || e.metaKey) {
+                if (['s', 'p', 'u', 'c'].includes(e.key.toLowerCase())) {
+                    e.preventDefault();
+                    return false;
+                }
+            }
+        });
+
+        /* ─── Block drag-start ─── */
+        container.addEventListener('dragstart', e => e.preventDefault());
+    </script>
+</body>
+
+</html>
